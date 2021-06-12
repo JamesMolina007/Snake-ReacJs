@@ -1,0 +1,18 @@
+body{
+    background: #4b54a5;
+    background: linear-gradient(to right, #161941, #9bcaff);
+    color: #eee;
+}
+
+.titulo, th, td{
+    color: #eee;
+}
+
+.cuadro{
+    display: inline-block;
+    width: 30px;
+    margin-left: 10px;
+    height: 30px;
+    background-color: rgb(84, 94, 105);
+    /* border: none; */
+}
