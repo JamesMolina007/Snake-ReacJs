@@ -10,6 +10,9 @@ function App() {
           <Route exact path="/">
             <Menu/>
           </Route>
+          <Route exact path="/menu">
+            <Menu/>
+          </Route>
           <Route path="/juego">
             <Juego />
           </Route>

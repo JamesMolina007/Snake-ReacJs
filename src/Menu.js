@@ -1,18 +1,57 @@
-import React, { useState } from "react";
+import React from "react";
 import './style.css';
 import { useHistory } from 'react-router-dom'
-import Juego from "./Juego"
+import useInterval from './useInterval';
 
-//npm i react-router-dom
 function Menu(){
     let history = useHistory();
-    const [j, modificarJugador] = useState(null);
+    var nombre;
+    var cargar = false, vivo = true;
+
+    useInterval(()=>{
+        if(vivo)
+            if (cargar)
+                mostrar()
+            else
+                cargar = true;
+    },500);
+
+    function mostrar(){
+        const tabla = document.getElementById("tablaPuntaje"); 
+            console.log(tabla);
+            for (let i = 0; i < localStorage.length; i++) {
+                try{
+                    const tr = document.createElement('tr');
+                    const element = localStorage.getItem(i+1);
+                    const nodos = element.split("|");
+                    const numero = document.createElement("th");
+                    numero.scope ="row";
+                    numero.innerText = nodos[0];
+                    const name = document.createElement("td");
+                    name.innerText = nodos[1];
+                    const puntos = document.createElement("td");
+                    puntos.innerText = nodos[2];
+                    const fecha = document.createElement("td");
+                    const tiempoTranscurrido = Date.now();
+                    const hoy = new Date(tiempoTranscurrido);
+                    fecha.innerText = hoy.toDateString();
+                    tr.appendChild(numero);
+                    tr.appendChild(name);
+                    tr.appendChild(puntos);
+                    tr.appendChild(fecha);
+                    tabla.appendChild(tr);
+                }catch(error){
+                }
+            }
+            if(tabla.hasChildNodes){ 
+                vivo = false; 
+                console.log("Murio");
+            }
+    }
     function jugar(){
-        const nombre = document.getElementById("jugador").value;
+        nombre = document.getElementById("jugador").value;
         if(nombre){
-            modificarJugador(nombre);
-            // <Juego jugador={j}/>
-            history.push("/juego");
+            history.push("/juego", {params: nombre});
         }else{
             window.alert("Ingrese el nombre del jugador!");
         }
@@ -35,10 +74,11 @@ function Menu(){
                             <th scope="col">Fecha</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tablaPuntaje">
                     </tbody>
                 </table>
             </div>
+            {/* <button onClick={cargar}>Cargar</button> */}
         </div>
     )
 }
