@@ -31,6 +31,7 @@ function Juego(){
         cola.push(24);
         cola.push(35);
         cola.push(46);
+        cola.push(57);
         colorear();
         manzanita();
         comenzo = true;
@@ -39,12 +40,13 @@ function Juego(){
     function colorear(){
         for (let index = 0; index < cola.length; index++) {
             const cuadro = document.getElementById("cuadro"+cola[index]);
-            if(cuadro && index != cola.length -1)
+            if(cuadro && index != cola.length -1 && index != 0)
                 cuadro.style = "background-color: #2a3177";
             if(index == cola.length -1)
                 cuadro.style = "background-color: #11093f";
+            if(index == 0 )
+                cuadro.style = "rgba(84, 94, 105, 0.521)";
         }
-
     }
 
     function direccion(){
@@ -63,19 +65,18 @@ function Juego(){
             manzanita();
             cola.push(borrado);
         }else if(cola.indexOf(cola[cola.length-1]) != cola.length-1){
-            console.log(cola);
             comenzo = false;
         }
-        if(tecla == 65) //Letra A
+        if(tecla == 65)
             if((cuadroID - 1) % arreglo.length == 0) comenzo = false;
             else cuadroID--;
-        else if(tecla == 68) //Letra D
+        else if(tecla == 68)
             if(cola[cola.length-1] % arreglo.length == 0) comenzo = false;
             else cuadroID++;
-        else if(tecla == 83) //Letra S
+        else if(tecla == 83)
             if(cola[cola.length-1] + arreglo.length > arreglo.length*arreglo.length)comenzo = false;
             else cuadroID += arreglo.length;
-        else if(tecla == 87) //Letra W
+        else if(tecla == 87)
             if(cola[cola.length-1]-arreglo.length < 1) comenzo = false;
             else cuadroID -= arreglo.length;
         if(comenzo) fin = true;
