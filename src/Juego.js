@@ -19,7 +19,7 @@ function Juego(){
             direccion();
         else if(fin)
             termino();
-    },300);
+    },150);
     
     function indexar(){
         const boton = document.getElementById("btn_comenzar");
